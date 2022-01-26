@@ -5,9 +5,42 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  /* background-color: rgb(44, 56, 56); */
+  background-color:rgb(101, 119, 99);;
 }
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+}
+
+.drum-machine{
+  background-color: rgb(101, 119, 99);
+  min-width: 200px;
+  max-width: 500px;
+  margin: 0 auto;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center
+}
+
+.display{
+  outline: 2px solid rgb(114, 108, 74);
+  width: 100%;
+  padding: 50px;
+  text-align: center;
+}
+
+.drum-pad{
+    width: 60px;
+    height: 60px;
+    margin:2px;
+    line-height: 60px;
+    display: inline-block;
+    color: white;
+    border-radius: 5px;
+    box-shadow: 1px 1px 4px rgb(255, 215, 0);
+    z-index: -2;
+    background:  rgb(44, 56, 56);
 }
