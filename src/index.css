@@ -6,7 +6,7 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   /* background-color: rgb(44, 56, 56); */
-  background-color:rgb(101, 119, 99);;
+  background-color: rgb(223, 230, 222);
 }
 
 code {
@@ -15,7 +15,7 @@ code {
 }
 
 .drum-machine{
-  background-color: rgb(101, 119, 99);
+  background-color: #fff;
   min-width: 200px;
   max-width: 500px;
   margin: 0 auto;
@@ -26,10 +26,15 @@ code {
 }
 
 .display{
+  background-color: rgb(223, 230, 222);
   outline: 2px solid rgb(114, 108, 74);
   width: 100%;
   padding: 50px;
   text-align: center;
+  display: block;
+  flex-wrap: wrap;
+  margin-right: 0; 
+  margin-left: 0; 
 }
 
 .drum-pad{
@@ -43,4 +48,46 @@ code {
     box-shadow: 1px 1px 4px rgb(255, 215, 0);
     z-index: -2;
     background:  rgb(44, 56, 56);
+}
+
+.power .bar, .bank .bar{
+    display: inline-block;
+    width: 50px;
+    height: 20px;
+    background: #000;
+    border: 1px solid #000;
+    text-align: center;
+
+}
+
+.power .bar div, .bank .bar div{
+    display: inline-block;
+    background: blue;
+    height: 100%;
+    width: 50%;
+}
+
+.screen{
+  display: inline-block;
+  color: white;
+  width: 100%;
+  height: 35px;
+  line-height: 35px;
+  margin-top: 1rem;
+  border-radius: 1px;
+  background:  rgb(44, 56, 56);
+}
+
+.volume .bar{
+    display: inline-block;
+    height: 14.5px;
+    padding: 6px 0;
+    width: 10px;
+    background: blue
+}
+
+.volume .bar div{
+  height: 2.5px;
+  width: 100%;
+  background: black;
 }
