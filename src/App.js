@@ -1,47 +1,62 @@
 import {useState}from "react"
 import {Col, Row, } from "react-bootstrap"
-
+import {audio1} from "./audio_files"
 
 function App() {
     const [togglePower, setTogglePower] = useState(true) 
     const [toggleBank, setToggleBank] = useState(false) 
     const [volume, setVolume] = useState(10)
     const [screenText, setScreenText] = useState()
+    const [padBackground, setPadBackground] = useState("rgb(44, 56, 56)")
 
     const handleVolume = num => {
         setVolume(num)
         setScreenText(`Volume ${num} `)
     }
 
+    const handleKeyPress = name => {
+        setScreenText(name)
+        setPadBackground("rgb(143, 146, 146)")
+    }
+
     return (
         <div className="drum-machine">
             <div className="display">
                 <div>
-                <div className="drum-pad">
+                <div  style={{background: padBackground}} onClick={() => handleKeyPress(audio1.q.name)} className="drum-pad">
+                    <audio class="clip" src={audio1.q.soundUrl} > </audio>
                     Q
                 </div>
-                <div className="drum-pad">
+                <div style={{background: padBackground}} onClick={() => handleKeyPress(audio1.w.name)} className="drum-pad">
+                    <audio class="clip" src={audio1.w.soundUrl} > </audio>
                     W
                 </div>
-                <div className="drum-pad">
+                <div style={{background: padBackground}} onClick={() => handleKeyPress(audio1.e.name)} className="drum-pad">
+                    <audio class="clip" src={audio1.e.soundUrl} > </audio>
                     E
                 </div> <br/>
-                <div className="drum-pad">
+                <div style={{background: padBackground}} onClick={() => handleKeyPress(audio1.a.name)} className="drum-pad">
+                    <audio class="clip" src={audio1.a.soundUrl} > </audio>
                     A   
                 </div>
-                <div className="drum-pad">
+                <div style={{background: padBackground}} onClick={() => handleKeyPress(audio1.s.name)} className="drum-pad">
+                    <audio class="clip" src={audio1.s.soundUrl} > </audio>
                     S
                 </div>
-                <div className="drum-pad">
+                <div style={{background: padBackground}} onClick={() => handleKeyPress(audio1.d.name)} className="drum-pad">
+                    <audio class="clip" src={audio1.d.soundUrl} > </audio>
                     D
                 </div><br/>
-                <div className="drum-pad">
+                <div style={{background: padBackground}} onClick={() => handleKeyPress(audio1.z.name)} className="drum-pad">
+                    <audio class="clip" src={audio1.z.soundUrl} > </audio>
                     Z
                 </div>
-                <div className="drum-pad">
+                <div style={{background: padBackground}} onClick={() => handleKeyPress(audio1.x.name)} className="drum-pad">
+                    <audio class="clip" src={audio1.x.soundUrl} > </audio>
                     X
                 </div>
-                <div className="drum-pad">
+                <div style={{background: padBackground}} onClick={() => handleKeyPress(audio1.c.name)} className="drum-pad">
+                    <audio class="clip" src={audio1.c.soundUrl} > </audio>
                     C
                 </div>
                 </div>

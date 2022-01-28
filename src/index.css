@@ -47,7 +47,10 @@ code {
     border-radius: 5px;
     box-shadow: 1px 1px 4px rgb(255, 215, 0);
     z-index: -2;
-    background:  rgb(44, 56, 56);
+}
+
+.drum-pad:hover{
+    cursor: pointer;
 }
 
 .power .bar, .bank .bar{
