@@ -51,7 +51,7 @@ code {
 
 .drum-pad:hover{
     cursor: pointer;
-    color: rgb(151, 151, 151)
+    color: #000
 }
 
 .power .bar, .bank .bar{

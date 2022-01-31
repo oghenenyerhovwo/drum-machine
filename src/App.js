@@ -1,8 +1,9 @@
 import React, {useEffect, useState}from "react"
 import {Col, Row, } from "react-bootstrap"
-import {audio1} from "./audio_files"
+import {audio1,audio2} from "./audio_files"
 
 function App() {
+    const [audio, setAudio] = useState(audio1)
     const [togglePower, setTogglePower] = useState(true) 
     const [toggleBank, setToggleBank] = useState(false) 
     const [volume, setVolume] = useState(10)
@@ -29,53 +30,61 @@ function App() {
     const myRefC = React.createRef();
 
     const handleKeyPress = (event) => {
-        if(event.key === "q"){
-            myRefQ.current.play()
-            setScreenText(myRefQ.current.attributes.name.value)
-            console.log("letter1")
-            changeBackground(myRefQ.current.attributes.id.value.toLowerCase())
-            console.log("letter2")
-
-        }
-        if(event.key === "w"){
-            myRefW.current.play()
-            setScreenText(myRefW.current.attributes.name.value)
-            changeBackground(myRefW.current.attributes.id.value.toLowerCase())
-        }
-        if(event.key === "e"){
-            myRefE.current.play()
-            setScreenText(myRefE.current.attributes.name.value)
-            changeBackground(myRefE.current.attributes.id.value.toLowerCase())
-        }
-        if(event.key === "a"){
-            myRefA.current.play()
-            setScreenText(myRefA.current.attributes.name.value)
-            changeBackground(myRefA.current.attributes.id.value.toLowerCase())
-        }
-        if(event.key === "s"){
-            myRefS.current.play()
-            setScreenText(myRefS.current.attributes.name.value)
-            changeBackground(myRefS.current.attributes.id.value.toLowerCase())
-        }
-        if(event.key === "d"){
-            myRefD.current.play()
-            setScreenText(myRefD.current.attributes.name.value)
-            changeBackground(myRefD.current.attributes.id.value.toLowerCase())
-        }
-        if(event.key === "z"){
-            myRefZ.current.play()
-            setScreenText(myRefZ.current.attributes.name.value)
-            changeBackground(myRefZ.current.attributes.id.value.toLowerCase())
-        }
-        if(event.key === "x"){
-            myRefX.current.play()
-            setScreenText(myRefX.current.attributes.name.value)
-            changeBackground(myRefX.current.attributes.id.value.toLowerCase())
-        }
-        if(event.key === "c"){
-            myRefC.current.play()
-            setScreenText(myRefC.current.attributes.name.value)
-            changeBackground(myRefC.current.attributes.id.value.toLowerCase())
+        if(togglePower){
+            if(event.key === "q"){
+                myRefQ.current.play()
+                myRefQ.current.volume = (volume/20)
+                setScreenText(myRefQ.current.attributes.name.value)
+                changeBackground(myRefQ.current.attributes.id.value.toLowerCase())
+            }
+            if(event.key === "w"){
+                myRefW.current.play()
+                myRefW.current.volume = (volume/20)
+                setScreenText(myRefW.current.attributes.name.value)
+                changeBackground(myRefW.current.attributes.id.value.toLowerCase())
+            }
+            if(event.key === "e"){
+                myRefE.current.play()
+                myRefE.current.volume = (volume/20)
+                setScreenText(myRefE.current.attributes.name.value)
+                changeBackground(myRefE.current.attributes.id.value.toLowerCase())
+            }
+            if(event.key === "a"){
+                myRefA.current.play()
+                myRefA.current.volume = (volume/20)
+                setScreenText(myRefA.current.attributes.name.value)
+                changeBackground(myRefA.current.attributes.id.value.toLowerCase())
+            }
+            if(event.key === "s"){
+                myRefS.current.play()
+                myRefS.current.volume = (volume/20)
+                setScreenText(myRefS.current.attributes.name.value)
+                changeBackground(myRefS.current.attributes.id.value.toLowerCase())
+            }
+            if(event.key === "d"){
+                myRefD.current.play()
+                myRefD.current.volume = (volume/20)
+                setScreenText(myRefD.current.attributes.name.value)
+                changeBackground(myRefD.current.attributes.id.value.toLowerCase())
+            }
+            if(event.key === "z"){
+                myRefZ.current.play()
+                myRefZ.current.volume = (volume/20)
+                setScreenText(myRefZ.current.attributes.name.value)
+                changeBackground(myRefZ.current.attributes.id.value.toLowerCase())
+            }
+            if(event.key === "x"){
+                myRefX.current.play()
+                myRefX.current.volume = (volume/20)
+                setScreenText(myRefX.current.attributes.name.value)
+                changeBackground(myRefX.current.attributes.id.value.toLowerCase())
+            }
+            if(event.key === "c"){
+                myRefC.current.play()
+                myRefC.current.volume = (volume/20)
+                setScreenText(myRefC.current.attributes.name.value)
+                changeBackground(myRefC.current.attributes.id.value.toLowerCase())
+            }
         }
     };
     
@@ -84,6 +93,13 @@ function App() {
         document.addEventListener("keydown", handleKeyPress);
     })
 
+    useEffect(() => {
+      if(!toggleBank){
+        setAudio(audio1)
+      } else {
+        setAudio(audio2)
+      }
+    }, [toggleBank])
 
     const handleVolume = num => {
         setVolume(num)
@@ -91,13 +107,15 @@ function App() {
     }
 
     const handlePadClick = (name, ref,e) => {
-        ref.current.play();
-        setScreenText(name)
-        changeBackground(e.target.children[0].id.toLowerCase())
+        if(togglePower){
+            ref.current.play();
+            ref.current.volume = (volume/20)
+            setScreenText(name)
+            changeBackground(e.target.children[0].id.toLowerCase())
+        }
     }
 
     const changeBackground = (letter) => {
-        console.log(letter)
         setToggleBackgrounds({
             ...toggleBackgrounds,
             [letter]: true
@@ -110,44 +128,51 @@ function App() {
         }, 200);
     }
 
+    const handleToggle = text => {
+        if(togglePower){
+            setToggleBank(prevToggle => !prevToggle)
+            setScreenText(text)
+        }
+    }
+
     return (
         <div className="drum-machine">
             <div className="display">
                 <div>
-                <div style={{background: !toggleBackgrounds.q ? "rgb(44, 56, 56)" : "rgb(151, 151, 151)" }} onClick={(e) => handlePadClick(audio1.q.name,myRefQ,e)} className="drum-pad">
-                    <audio id="Q" name={audio1.q.name} type="audio/mpeg" ref={myRefQ} className="clip" src={audio1.q.soundUrl} > </audio>
+                <div style={{background: !toggleBackgrounds.q ? "rgb(44, 56, 56)" : "rgb(255, 215, 0)" }} onClick={(e) => handlePadClick(audio.q.name,myRefQ,e)} className="drum-pad">
+                    <audio id="Q" name={audio.q.name} type="audio/mpeg" ref={myRefQ} className="clip" src={audio.q.soundUrl} > </audio>
                     Q
                 </div>
-                <div style={{background: !toggleBackgrounds.w ? "rgb(44, 56, 56)" : "rgb(151, 151, 151)" }} onClick={(e) => handlePadClick(audio1.w.name,myRefW,e)} className="drum-pad">
-                    <audio id="W" name={audio1.w.name} type="audio/mpeg" ref={myRefW} className="clip" src={audio1.w.soundUrl} > </audio>
+                <div style={{background: !toggleBackgrounds.w ? "rgb(44, 56, 56)" : "rgb(255, 215, 0)" }} onClick={(e) => handlePadClick(audio.w.name,myRefW,e)} className="drum-pad">
+                    <audio id="W" name={audio.w.name} type="audio/mpeg" ref={myRefW} className="clip" src={audio.w.soundUrl} > </audio>
                     W
                 </div>
-                <div style={{background: !toggleBackgrounds.e ? "rgb(44, 56, 56)" : "rgb(151, 151, 151)" }} onClick={(e) => handlePadClick(audio1.e.name,myRefE,e)} className="drum-pad">
-                    <audio id="E" name={audio1.e.name} type="audio/mpeg" ref={myRefE} className="clip" src={audio1.e.soundUrl} > </audio>
+                <div style={{background: !toggleBackgrounds.e ? "rgb(44, 56, 56)" : "rgb(255, 215, 0)" }} onClick={(e) => handlePadClick(audio.e.name,myRefE,e)} className="drum-pad">
+                    <audio id="E" name={audio.e.name} type="audio/mpeg" ref={myRefE} className="clip" src={audio.e.soundUrl} > </audio>
                     E
                 </div> <br/>
-                <div style={{background: !toggleBackgrounds.a ? "rgb(44, 56, 56)" : "rgb(151, 151, 151)" }} onClick={(e) => handlePadClick(audio1.a.name,myRefA,e)} className="drum-pad">
-                    <audio id="A" name={audio1.a.name} type="audio/mpeg" ref={myRefA} className="clip" src={audio1.a.soundUrl} > </audio>
+                <div style={{background: !toggleBackgrounds.a ? "rgb(44, 56, 56)" : "rgb(255, 215, 0)" }} onClick={(e) => handlePadClick(audio.a.name,myRefA,e)} className="drum-pad">
+                    <audio id="A" name={audio.a.name} type="audio/mpeg" ref={myRefA} className="clip" src={audio.a.soundUrl} > </audio>
                     A   
                 </div>
-                <div style={{background: !toggleBackgrounds.s ? "rgb(44, 56, 56)" : "rgb(151, 151, 151)" }} onClick={(e) => handlePadClick(audio1.s.name,myRefS,e)} className="drum-pad">
-                    <audio id="S" name={audio1.s.name} type="audio/mpeg" ref={myRefS} className="clip" src={audio1.s.soundUrl} > </audio>
+                <div style={{background: !toggleBackgrounds.s ? "rgb(44, 56, 56)" : "rgb(255, 215, 0)" }} onClick={(e) => handlePadClick(audio.s.name,myRefS,e)} className="drum-pad">
+                    <audio id="S" name={audio.s.name} type="audio/mpeg" ref={myRefS} className="clip" src={audio.s.soundUrl} > </audio>
                     S
                 </div>
-                <div style={{background: !toggleBackgrounds.d ? "rgb(44, 56, 56)" : "rgb(151, 151, 151)" }} onClick={(e) => handlePadClick(audio1.d.name,myRefD,e)} className="drum-pad">
-                    <audio id="D" name={audio1.d.name} type="audio/mpeg" ref={myRefD} className="clip" src={audio1.d.soundUrl} > </audio>
+                <div style={{background: !toggleBackgrounds.d ? "rgb(44, 56, 56)" : "rgb(255, 215, 0)" }} onClick={(e) => handlePadClick(audio.d.name,myRefD,e)} className="drum-pad">
+                    <audio id="D" name={audio.d.name} type="audio/mpeg" ref={myRefD} className="clip" src={audio.d.soundUrl} > </audio>
                     D
                 </div><br/>
-                <div style={{background: !toggleBackgrounds.z ? "rgb(44, 56, 56)" : "rgb(151, 151, 151)" }} onClick={(e) => handlePadClick(audio1.z.name,myRefZ,e)} className="drum-pad">
-                    <audio id="Z" name={audio1.z.name} type="audio/mpeg" ref={myRefZ} className="clip" src={audio1.z.soundUrl} > </audio>
+                <div style={{background: !toggleBackgrounds.z ? "rgb(44, 56, 56)" : "rgb(255, 215, 0)" }} onClick={(e) => handlePadClick(audio.z.name,myRefZ,e)} className="drum-pad">
+                    <audio id="Z" name={audio.z.name} type="audio/mpeg" ref={myRefZ} className="clip" src={audio.z.soundUrl} > </audio>
                     Z
                 </div>
-                <div style={{background: !toggleBackgrounds.x ? "rgb(44, 56, 56)" : "rgb(151, 151, 151)" }} onClick={(e) => handlePadClick(audio1.x.name,myRefX,e)} className="drum-pad">
-                    <audio id="X" name={audio1.x.name} type="audio/mpeg" ref={myRefX} className="clip" src={audio1.x.soundUrl} > </audio>
+                <div style={{background: !toggleBackgrounds.x ? "rgb(44, 56, 56)" : "rgb(255, 215, 0)" }} onClick={(e) => handlePadClick(audio.x.name,myRefX,e)} className="drum-pad">
+                    <audio id="X" name={audio.x.name} type="audio/mpeg" ref={myRefX} className="clip" src={audio.x.soundUrl} > </audio>
                     X
                 </div>
-                <div style={{background: !toggleBackgrounds.c ? "rgb(44, 56, 56)" : "rgb(151, 151, 151)" }} onClick={(e) => handlePadClick(audio1.c.name,myRefC,e)} className="drum-pad">
-                    <audio id="C" name={audio1.c.name} type="audio/mpeg" ref={myRefC} className="clip" src={audio1.c.soundUrl} > </audio>
+                <div style={{background: !toggleBackgrounds.c ? "rgb(44, 56, 56)" : "rgb(255, 215, 0)" }} onClick={(e) => handlePadClick(audio.c.name,myRefC,e)} className="drum-pad">
+                    <audio id="C" name={audio.c.name} type="audio/mpeg" ref={myRefC} className="clip" src={audio.c.soundUrl} > </audio>
                     C
                 </div>
                 </div>
@@ -171,8 +196,8 @@ function App() {
                         <div className="bank">
                             <h6>Bank</h6>
                             <div className="bar">
-                                <div style={{opacity: toggleBank ? 0: 1}} onClick={() => setToggleBank(prevToggle => !prevToggle)}></div>
-                                <div style={{opacity: !toggleBank ? 0: 1}} onClick={() => setToggleBank(prevToggle => !prevToggle)}></div>
+                                <div style={{opacity: toggleBank ? 0: 1}} onClick={() => handleToggle("Heater Kit")}></div>
+                                <div style={{opacity: !toggleBank ? 0: 1}} onClick={() => handleToggle("Smooth Piano Kit")}></div>
                             </div>
                         </div>
                     </Col> 
